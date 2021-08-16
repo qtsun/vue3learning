@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    const app = Vue.createApp({
+        data() {
+            // return { num: () => {alert(123)}}
+            return { num: 123}
+        },
+        template:`
+            <div><test :content="num"/></div>
+        `
+    })
+    // String, Boolean, Array, Object, Function, Symbol
+    app.component('test', {
+        props: {
+            // content: Function
+            content: {
+                type: Number,
+                validator: function(value) {
+                    return value < 1000
+                },
+                // required: true
+                default: function() {
+                    return 456
+                }
+            }
+        },
+        methods: {
+            handleClick() {
+                alert(456)
+                this.content()
+            }
+        },
+        // template: `<div @click="this.handleClick">{{typeof content}}</div>`
+        template: `<div>{{content}}</div>`
+    })
+    const vm = app.mount("#root")
+</script>
+</html>
