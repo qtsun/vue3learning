@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // ref reactive 响应式的引用
+    // 原理， 通过proxy对数据进行封装，当数据变化时，触发模板等内容的更新
+    // ref 处理基础类型的数据 （字符串、数字）
+    // reactive 处理非基础类型的数据
+    const app = Vue.createApp({
+
+        // template:`
+        //     <div>{{name}}</div>
+        // `,
+        
+        template:`
+            <div>{{nameObj.name}}</div>
+        `,
+        setup(props, context) {
+            // const { ref } = Vue
+            // // proxy , 'dell' 变成 proxy({value: 'dell'}) 这样的一个响应式引用
+            // let name = ref('dell')
+            // setTimeout(() => {
+            //     name.value = 'lee'
+            // }, 2000);
+            // return {
+            //     name
+            // }
+
+            const { reactive } = Vue
+            // proxy, { name: 'dell'} 变成 proxy({ name: 'dell'}) 这样的一个响应式引用
+            const nameObj = reactive({ name: 'dell'})
+            setTimeout(() => {
+                nameObj.name = 'lee'
+            }, 2000)
+            return { nameObj }
+        }
+    })
+
+    const vm = app.mount("#root")
+</script>
+</html>

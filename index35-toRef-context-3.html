@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    
+    const app = Vue.createApp({
+        methods: {
+            handleChange() {
+               alert('change') 
+            }
+        },
+        template:`
+            <child @change="handleChange">parent</child>
+        `
+        
+    })
+    app.component('child', {
+        template: `
+            <div @click="handleClick">child</div>
+        `,
+        setup(props, context) {
+            const { h } = Vue
+            const { attrs, slots, emit } = context 
+            function handleClick() {
+                emit('change')
+            }
+            return { handleClick}
+        }
+    })
+
+    const vm = app.mount("#root")
+</script>
+</html>

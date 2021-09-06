@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // v-bind=params
+    // 等价于 :content="params.content" :a="params.a" :b="params.b" :c="params.c"
+    const app = Vue.createApp({
+        data() {
+            // return { 
+            //     num: 123,
+            //     a:123,
+            //     b:234,
+            //     c:678
+            // }
+            return { 
+                params : {
+                    content:1235,
+                    num: 123,
+                a:123,
+                b:234,
+                c:678
+                }
+            }
+        },
+        // template:`
+        //     <div><test :content="num" :a="a" :b="b" :c="c"/></div>
+        // `
+        template:`
+            <div><test v-bind="params"/></div>
+        `
+    })
+    app.component('test', {
+        props: ['content','a','b','c'],
+        methods: {
+            handleClick() {
+                alert(456)
+                this.content()
+            }
+        },
+        template: `<div>{{content}}--{{a}}--{{b}}--{{c}}</div>`
+    })
+    const vm = app.mount("#root")
+</script>
+</html>

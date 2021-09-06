@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+
+    const app = Vue.createApp({
+        data() {
+            return { 
+                number:1,
+            }
+        },
+        created () {
+            console.log('created');
+        },
+        methods: {
+            handleClick() {
+                console.log('Handleclick')
+            }
+        },
+        template:`
+            <div>
+             <div>{{number}}</div>
+             <div>{{count}}</div>
+             <child />
+             <button @click="handleClick">增加</button>  
+            </div>
+        `
+    })
+
+    app.mixin({
+        data() {
+            return { 
+                number: 2,
+                count: 1
+            }
+        },
+        created() {
+            console.log('mixin created')
+        },
+        methods: {
+            handleClick() {
+                console.log('mixin handleclick')
+            }
+        },
+    })
+
+    app.component('child', {
+        template: "<div>{{count}}</div>"
+    })
+    const vm = app.mount("#root")
+</script>
+</html>
