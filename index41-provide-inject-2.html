@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // dom ref
+    const app = Vue.createApp({
+        // Composition API  语法下获取真实的DOM元素节点
+        setup() {
+            const { ref, onMounted } = Vue
+            hello = ref(null) //定义一个与ref="hello"同名的hello变量
+            onMounted(()=>{
+                console.log(hello.value)
+            })
+            return {
+                hello
+            }
+        },
+        
+        template:`
+            <div>
+               <div ref="hello">hello world</div>
+            </div>
+        `
+        
+    })
+
+    const vm = app.mount("#root")
+</script>
+</html>

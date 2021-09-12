@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+<script>
+    // provide, inject
+    const app = Vue.createApp({
+        
+        setup() {
+            const { provide, ref, readonly } = Vue
+            const name = ref('dell')
+            provide('name', readonly(name))
+            provide('changeName', (value) => {
+                name.value = value
+            })
+            return {}
+        },
+        
+        template:`
+            <div>
+               <child />
+            </div>
+        `
+        
+    })
+
+    app.component('child', {
+        setup() {
+            const { inject } = Vue
+            const name = inject('name', 'hello') // 默认值'hello'
+            const changeName = inject('changeName')
+            const handleClick = () => {
+                // 加了readonly就不能 name.value = 'lee'
+                // 父组件的值最好在父组件内更改
+                changeName('lee')
+            }
+            return { name, handleClick }
+        },
+        template: '<div @click="handleClick">{{name}}</div>'
+    })
+
+    const vm = app.mount("#root")
+</script>
+</html>
