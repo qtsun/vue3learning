@@ -11,10 +11,11 @@ module.exports = {
   parserOptions: {
     parser: '@babel/eslint-parser',
     parserOptions: {
-      sourceType: 'module',
-      babelOptions: {
-        configFile: path.join(__dirname, 'babel.config.json')
-      }
+      requireConfigFile : false
+      // sourceType: 'module',
+      // babelOptions: {
+      //   configFile: path.join(__dirname, 'babel.config.js')
+      // }
     }
     },
     rules: {
