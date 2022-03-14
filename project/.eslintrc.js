@@ -11,15 +11,17 @@ module.exports = {
   parserOptions: {
     parser: '@babel/eslint-parser',
     parserOptions: {
-      requireConfigFile : false
+      requireConfigFile: false
       // sourceType: 'module',
       // babelOptions: {
       //   configFile: path.join(__dirname, 'babel.config.js')
       // }
     }
-    },
-    rules: {
-      'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-      'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
-    }
+  },
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'eslint-disable-next-line': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'eslint-disable': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
   }
+}
